@@ -1,3 +1,7 @@
+div, h4,h1 {
+    font: arial;
+}
+
 .main-container{
     display: flex;
     flex-direction: column;
@@ -26,6 +30,7 @@
     max-width: 60px;
     border: 1px, solid, black;
     margin: 5px;
+        font: arial;
 }
 
 .row-container {
@@ -34,7 +39,7 @@
 }
 
 .course-info-container {
-
+    font: arial;
 }
 
 #total-score {
