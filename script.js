@@ -1,6 +1,6 @@
 let teeType = 0;
 let currentId = 0;
-let player1 = [];
+let player1 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
 let player2 = [];
 let player3 = [];
 let player4 = [];
@@ -38,18 +38,16 @@ async function getCourses() {
 }
 
 function updateScore(){
-    document.getElementById('column22').innerText = 'Player 1: ' +player1score;
-    document.getElementById('column22').innerText += 'Player 2: ' +player2score;
-    document.getElementById('column22').innerText += 'Player 3: ' +player3score;
-    document.getElementById('column22').innerText += 'Player 4: ' +player4score;
-    console.log('1 ' +player1score)
-    console.log('2 ' +player2score)
-    console.log('3 ' +player3score)
-    console.log('4 ' +player4score)
-    
+    document.getElementById('player1').innerText = 'Player 1: ' +player1score;
+    document.getElementById('player2').innerText = 'Player 2: ' +player2score;
+    document.getElementById('player3').innerText = 'Player 3: ' +player3score;
+    document.getElementById('player4').innerText = 'Player 4: ' +player4score; 
 }
 
 function addScore(value, player, holeNum){
+    if(!value) {
+        value = 0;
+    }
     if(player == 1){
         player1[holeNum] = parseInt(value);
         player1score = 0;
@@ -78,24 +76,10 @@ function addScore(value, player, holeNum){
     updateScore();
 }
 
-/* for(let i = 1; i<19; i++){
-    document.getElementById('rowName').innerText += `<div id="column${i}">
-    <div id="hole${i}"></div>
-    <div id="par${i}"></div>
-    <div id="yard$${i}"></div>
-    <div id="handicap${i}></div>
-    <div id="playerScore${i}"></div>
-</div>`
-} */
-getCourses();
-
-
 function updateType(type) {
  teeType = type;
  getCourse(currentId);
 }
-
-
 
 async function getCourse(value) {
     currentId = value;
@@ -104,9 +88,6 @@ async function getCourse(value) {
     const obj = await (await response).json();
     const data = obj.data
     let parCount = 0;
-    console.log(data);
-    console.log(data.accomodations)
-    console.log(data.holeCount);
     for(let i = 0; i < 18; i++){
         let currentColumn = document.getElementById(`column${i+1}`)
         currentColumn.innerHTML = '';
@@ -123,18 +104,17 @@ async function getCourse(value) {
                 currentColumn.innerHTML  += `<div id="par${i+1}">Par: ${holePar}<div>`;
                 currentColumn.innerHTML  += `<div id="yardage${i+1}">Yards: ${yardage}</div>`
                 currentColumn.innerHTML  += `<div id ="handicap${i+1}">Handicap: ${handicap}</div>`
-                currentColumn.innerHTML += `<div id="player1Score${i+1}"><input id="scoreInput${i+1}" onchange="addScore(this.value, 1, ${i})" type="number"></div>`
-                currentColumn.innerHTML += `<div id="player2Score${i+1}"><input id="scoreInput${i+1}" onchange="addScore(this.value, 1, ${i})" type="number"></div>`
-                currentColumn.innerHTML += `<div id="player3Score${i+1}"><input id="scoreInput${i+1}" onchange="addScore(this.value, 3, ${i})" type="number"></div>`
-                currentColumn.innerHTML += `<div id="player4Score${i+1}"><input id="scoreInput${i+1}" onchange="addScore(this.value, 4, ${i})" type="number"></div>`
+                currentColumn.innerHTML += `<div id="player2Score${i+1}"><input id="scoreInput${i+1}" onchange="addScore(this.value, 1, ${i})" maxlength="2" type="number"></div>`
+                currentColumn.innerHTML += `<div id="player3Score${i+1}"><input id="scoreInput${i+1}" onchange="addScore(this.value, 2, ${i})" maxlength="2" size="2" type="number"></div>`
+                currentColumn.innerHTML += `<div id="player1Score${i+1}"><input id="scoreInput${i+1}" onchange="addScore(this.value, 3, ${i})" maxlength="2" type="number"></div>`
+                currentColumn.innerHTML += `<div id="player4Score${i+1}"><input id="scoreInput${i+1}" onchange="addScore(this.value, 4, ${i})" maxlength="2" size="2" type="number"></div>`
 
                 if(i == 17){
-                    document.getElementById('parPar').innerHTML = `<div id='totalPar'>Total Par ${parCount}</div>`
+                    document.getElementById('total-par').innerHTML = `<div id='totalPar'>Total Par: ${parCount}</div>`
        }
        
     }
 reloadCSS();
 }
 
-
-print();
+getCourses();
