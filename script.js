@@ -1,5 +1,6 @@
 let teeType = 0;
 let currentId = 0;
+let parCount = 0;
 let player1 = [];
 let player2 = [];
 let player3 = [];
@@ -8,6 +9,8 @@ let player1score = 0;
 let player2score = 0;
 let player3score = 0;
 let player4score = 0;
+let totalYards = 0;
+let listOfNames = [];
 
 function reloadCSS() {
     let linkTag = document.getElementById('link');
@@ -44,15 +47,28 @@ async function getCourse(value) {
     reloadCSS();
 }
 
+function checkNames(name, input){
+    name.toLowerCase();
+   if(listOfNames == ''){listOfNames.push([name,input])}
+   else{
+       listOfNames.forEach(storedName => {
+           if(name == storedName[0] && input != storedName[1]) {
+                document.getElementById(input).value = '';
+           }
+       })
+    }
+
+}
+
 function displayCourseTable(data) {
     clearColumnData()
     let parCount = 0;
     for (let i = 0; i < data.holeCount; i++) {
         const holePar = data.holes[i].teeBoxes[teeType].par
-        parCount += holePar;
-        let j = 1;
         const yardage = data.holes[i].teeBoxes[teeType].yards
         const handicap = data.holes[i].teeBoxes[teeType].hcp
+        parCount += holePar;
+        totalYards += yardage;
         let currentColumn = document.getElementById(`column${i + 1}`)
         currentColumn.innerHTML += `<div class="hole" id="hole${data.holes[i].hole}">Hole ${i + 1}<div>`;
         currentColumn.innerHTML += `<div class="par" id="par${i + 1}">Par ${holePar}<div>`;
@@ -65,6 +81,7 @@ function displayCourseTable(data) {
 
         if (i == 17) {
             document.getElementById('total-par').innerHTML = `<div id='totalPar'>Total Par ${parCount}</div>`
+            document.getElementById('total-yards-area').innerHTML = `<div>${totalYards}<div>`
         }
 
     }
@@ -94,7 +111,24 @@ function clearColumnData() {
     }
 }
 
+function checkForGameEnd(arr, score) {
+    let count = 0
+    if(arr.length == 18) {
+        arr.forEach(elem => {
+            if(elem != 0) {
+                count++;
+            }
+        })
+        if(count == 18) {
+            return [1, score]
+        }else {
+            return -1
+        }
+    }
+}
+
 function addScore(value, player, holeNum) {
+    let check = 0;
     if (!value) {
         value = 0;
     }
@@ -104,24 +138,35 @@ function addScore(value, player, holeNum) {
         player1.forEach(elem => {
             player1score = player1score + elem;
         })
+        check = checkForGameEnd(player1, player1score);
     } else if (player == 2) {
         player2[holeNum] = parseInt(value);
         player2score = 0;
         player2.forEach(elem => {
             player2score += elem;
         })
+        check = checkForGameEnd(player2, player2score);
     } else if (player == 3) {
         player3[holeNum] = parseInt(value);
         player3score = 0;
         player3.forEach(elem => {
             player3score += elem;
         })
+        check = checkForGameEnd(player3, player3score);
     } else if (player == 4) {
         player4[holeNum] = parseInt(value);
         player4score = 0;
         player4.forEach(elem => {
             player4score += elem;
         })
+        check = checkForGameEnd(player4, player4score);
+    }
+    if(check[0] == 1 && check[1] > parCount ) {
+        document.getElementById('final-score').innerText = "Over par! Better luck next time"
+    } else if(check[0] == 1 && check[1] < parCount) {
+        document.getElementById('final-score').innerText = `Awesome, you scored ${check1 - parCount} under Par!`
+    }else {
+        document.getElementById('final-score').innerText = `Close one you scored on par` 
     }
     updateScore();
 }

@@ -47,16 +47,16 @@
             <div>Players</div>
             <div id="white-space"></div>
             <div>
-                <input id="player-1" type="text">
+                <input id="player-1" type="text" onchange="checkNames(this.value, 'player-1')">
             </div>
             <div>
-                <input id="player-2" type="text">
+                <input id="player-2" type="text" onchange="checkNames(this.value, 'player-2')">
             </div>
             <div>
-                <input id="player-3" type="text">
+                <input id="player-3" type="text" onchange="checkNames(this.value, 'player-3')">
             </div>
             <div>
-                <input id="player-4" type="text">
+                <input id="player-4" type="text" onchange="checkNames(this.value, 'player-3')">
             </div>
         </div>
         <div class="column-container" id="column1">
@@ -129,6 +129,10 @@
             <div id="player4">
 
             </div>
+        </div>
+        <div class="column-container" id="total-yards">
+            <div>Total Yards</div>
+            <div id="total-yards-area"></div>
         </div>
         <div class="column-container" id="out-score">
             <div>Out Score</div>
