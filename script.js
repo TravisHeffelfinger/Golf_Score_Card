@@ -32,11 +32,13 @@ async function selectCourses() {
 
 async function getCourse(value) {
     currentId = value;
+    clearScore();
     const response = fetch(`https://golf-courses-api.herokuapp.com/courses/${value}`)
 
     const obj = await (await response).json();
     const data = obj.data
     console.log(data);
+
     displayCourseTable(data);
     displayCourseInformation(data);
     reloadCSS();
@@ -53,9 +55,9 @@ function displayCourseTable(data) {
         const handicap = data.holes[i].teeBoxes[teeType].hcp
         let currentColumn = document.getElementById(`column${i + 1}`)
         currentColumn.innerHTML += `<div class="hole" id="hole${data.holes[i].hole}">Hole ${i + 1}<div>`;
-        currentColumn.innerHTML += `<div id="par${i + 1}">Par ${holePar}<div>`;
-        currentColumn.innerHTML += `<div id="yardage${i + 1}">Yards ${yardage}</div>`
-        currentColumn.innerHTML += `<div id ="handicap${i + 1}">Handicap ${handicap}</div>`
+        currentColumn.innerHTML += `<div class="par" id="par${i + 1}">Par ${holePar}<div>`;
+        currentColumn.innerHTML += `<div class="yards" id="yardage${i + 1}">Yards ${yardage}</div>`
+        currentColumn.innerHTML += `<div class="handicap" id ="handicap${i + 1}">Handicap ${handicap}</div>`
         currentColumn.innerHTML += `<div id="player2Score${i + 1}"><input id="scoreInput${i + 1}" onchange="addScore(this.value, 1, ${i})" maxlength="2" type="number"></div>`
         currentColumn.innerHTML += `<div id="player3Score${i + 1}"><input id="scoreInput${i + 1}" onchange="addScore(this.value, 2, ${i})" maxlength="2" size="2" type="number"></div>`
         currentColumn.innerHTML += `<div id="player1Score${i + 1}"><input id="scoreInput${i + 1}" onchange="addScore(this.value, 3, ${i})" maxlength="2" type="number"></div>`
@@ -82,6 +84,7 @@ function displayCourseInformation(data) {
 function updateType(type) {
     teeType = type;
     getCourse(currentId);
+    clearScore();
 }
 
 function clearColumnData() {
@@ -122,6 +125,19 @@ function addScore(value, player, holeNum) {
     }
     updateScore();
 }
+
+function clearScore(){
+    player1 = [];
+    player2 = [];
+    player3 = [];
+    player4 = [];
+    player1score = 0;
+    player2score = 0;
+    player3score = 0;
+    player4score = 0;
+    updateScore();
+}
+
 
 function updateScore() {
     document.getElementById('player1').innerText = 'Player 1: ' + player1score;

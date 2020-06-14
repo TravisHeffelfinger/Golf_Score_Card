@@ -44,3 +44,7 @@
 #white-space{
     margin-top: 91px;
 }
+
+.column-container input {
+    max-width: 60px;
+}
