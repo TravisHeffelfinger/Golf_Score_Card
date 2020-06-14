@@ -5,6 +5,14 @@ let player1 = [];
 let player2 = [];
 let player3 = [];
 let player4 = [];
+let player1in = 0;
+let player2in = 0;
+let player3in = 0;
+let player4in = 0;
+let player1out=0;
+let player2out=0;
+let player3out = 0;
+let player4out = 0;
 let player1score = 0;
 let player2score = 0;
 let player3score = 0;
@@ -171,6 +179,32 @@ function addScore(value, player, holeNum) {
     updateScore();
 }
 
+function inScore() {
+    for(let i = 8; i < 18; i++){
+        player1in += player1[i];
+        player2in += player2[i];
+        player3in += player3[i];
+        player4in += player4[i];
+    }
+    document.getElementById('player-one-in').innerText = player1in;
+    document.getElementById('player-two-in').innerText = player2in;
+    document.getElementById('player-three-in').innerText = player3in;
+    document.getElementById('player-four-in').innerText = player4in;
+}
+
+function outScore() {
+    for(let i = 0; i < 9; i++){
+        player1out += player1[i];
+        player2out += player2[i];
+        player3out += player3[i];
+        player4out += player4[i];
+    }
+    document.getElementById('player-one-out').innerText = player1out;
+    document.getElementById('player-two-out').innerText = player2out;
+    document.getElementById('player-three-out').innerText = player3out;
+    document.getElementById('player-four-out').innerText = player4out;   
+}
+
 function clearScore(){
     player1 = [];
     player2 = [];
@@ -189,6 +223,8 @@ function updateScore() {
     document.getElementById('player2').innerText = 'Player 2: ' + player2score;
     document.getElementById('player3').innerText = 'Player 3: ' + player3score;
     document.getElementById('player4').innerText = 'Player 4: ' + player4score;
+    inScore();
+    outScore();
 }
 
 
