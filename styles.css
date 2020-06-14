@@ -23,4 +23,24 @@
 .column-container {
     max-height: 200px;
     max-width: 60px;
+    border: 1px, solid, black;
+    margin: 1px;
+}
+
+.row-container {
+    display: flex;
+    justify-content: space-evenly;  
+}
+
+.course-info-container {
+
+}
+
+.player-column {
+    max-width: 100px;
+    max-height: 200px;
+}
+
+#white-space{
+    margin-top: 91px;
 }

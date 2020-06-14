@@ -9,7 +9,24 @@
 
 <body id="main-container">
     <div class="header-container">
-        <div id="current-course"></div>
+        <div id="image">
+
+        </div>
+        <div class="course-info-container">
+            <h1 id="current-course"></h1>
+           
+            <div class="row-container">
+                <h5 id="course-address"></h5>
+                <h5 id="course-city"></h5>
+                <h5 id="state"></h5>
+            </div>
+            <div class="row-container">
+                <h6 id="course-phone"></h6>
+                <h6 id="course-website"></h6>
+            </div>
+            
+        </div>
+
         <div>
             <div>Change course:</div>
             <select id="select-course" onchange="getCourse(this.value)"></select>
@@ -24,9 +41,24 @@
             </select>
         </div>
         <div>Time of Day</div>
-        <div><a href="test.html">test</a>Logo</div>
     </div>
     <div class="table-container">
+        <div class="player-column" id="players">
+            <div>Players</div>
+            <div id="white-space"></div>
+            <div>
+                <input id="player-1" type="text">
+            </div>
+            <div>
+                <input id="player-2" type="text">
+            </div>
+            <div>
+                <input id="player-3" type="text">
+            </div>
+            <div>
+                <input id="player-4" type="text">
+            </div>
+        </div>
         <div class="column-container" id="column1">
 
         </div>
@@ -89,13 +121,13 @@
 
             </div>
             <div id="player2">
-    
+
             </div>
             <div id="player3">
-    
+
             </div>
             <div id="player4">
-    
+
             </div>
         </div>
         <div class="column-container" id="out-score">
@@ -104,7 +136,7 @@
         <div class="column-container" id="in-score">
 
         </div>
-        
+
     </div>
 </body>
 

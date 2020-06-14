@@ -23,12 +23,10 @@ async function selectCourses() {
     let courseOptions = document.getElementById('select-course');
     let text = '';
     courses.forEach(current => {
-        console.log(current.name)
         text += `<option value=${current.id}>${current.name}</option>`
     })
 
     courseOptions.innerHTML = text;
-    document.getElementById('current-course').innerText = courses[0].name;
     getCourse(courses[0].id);
 }
 
@@ -38,11 +36,13 @@ async function getCourse(value) {
 
     const obj = await (await response).json();
     const data = obj.data
-    displayCourse(data);
+    console.log(data);
+    displayCourseTable(data);
+    displayCourseInformation(data);
     reloadCSS();
 }
 
-function displayCourse(data) {
+function displayCourseTable(data) {
     clearColumnData()
     let parCount = 0;
     for (let i = 0; i < data.holeCount; i++) {
@@ -52,20 +52,31 @@ function displayCourse(data) {
         const yardage = data.holes[i].teeBoxes[teeType].yards
         const handicap = data.holes[i].teeBoxes[teeType].hcp
         let currentColumn = document.getElementById(`column${i + 1}`)
-        currentColumn.innerHTML += `<div id="hole${data.holes[i].hole}">hole: ${i + 1}<div>`;
-        currentColumn.innerHTML += `<div id="par${i + 1}">Par: ${holePar}<div>`;
-        currentColumn.innerHTML += `<div id="yardage${i + 1}">Yards: ${yardage}</div>`
-        currentColumn.innerHTML += `<div id ="handicap${i + 1}">Handicap: ${handicap}</div>`
+        currentColumn.innerHTML += `<div class="hole" id="hole${data.holes[i].hole}">Hole ${i + 1}<div>`;
+        currentColumn.innerHTML += `<div id="par${i + 1}">Par ${holePar}<div>`;
+        currentColumn.innerHTML += `<div id="yardage${i + 1}">Yards ${yardage}</div>`
+        currentColumn.innerHTML += `<div id ="handicap${i + 1}">Handicap ${handicap}</div>`
         currentColumn.innerHTML += `<div id="player2Score${i + 1}"><input id="scoreInput${i + 1}" onchange="addScore(this.value, 1, ${i})" maxlength="2" type="number"></div>`
         currentColumn.innerHTML += `<div id="player3Score${i + 1}"><input id="scoreInput${i + 1}" onchange="addScore(this.value, 2, ${i})" maxlength="2" size="2" type="number"></div>`
         currentColumn.innerHTML += `<div id="player1Score${i + 1}"><input id="scoreInput${i + 1}" onchange="addScore(this.value, 3, ${i})" maxlength="2" type="number"></div>`
         currentColumn.innerHTML += `<div id="player4Score${i + 1}"><input id="scoreInput${i + 1}" onchange="addScore(this.value, 4, ${i})" maxlength="2" size="2" type="number"></div>`
 
         if (i == 17) {
-            document.getElementById('total-par').innerHTML = `<div id='totalPar'>Total Par: ${parCount}</div>`
+            document.getElementById('total-par').innerHTML = `<div id='totalPar'>Total Par ${parCount}</div>`
         }
 
     }
+}
+
+function displayCourseInformation(data) {
+    document.getElementById('current-course').innerText = data.name;
+    document.getElementById('course-address').innerText = data.addr1 ? data.addr1: data.addr2
+    document.getElementById('course-city').innerText = data.city
+    document.getElementById('state').innerText = data.stateOrProvince
+    document.getElementById('course-phone').innerText = data.phone
+    document.getElementById('image').innerHTML = `<img alt="Image of ${data.name}" src="${data.thumbnail}"></img>`
+    document.getElementById('course-website').innerText = data.website
+
 }
 
 function updateType(type) {
