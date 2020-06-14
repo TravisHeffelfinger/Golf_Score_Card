@@ -237,10 +237,10 @@ function clearScore(){
 
 
 function updateScore() {
-    document.getElementById('player1').innerText = 'Player 1: ' + player1score;
-    document.getElementById('player2').innerText = 'Player 2: ' + player2score;
-    document.getElementById('player3').innerText = 'Player 3: ' + player3score;
-    document.getElementById('player4').innerText = 'Player 4: ' + player4score;
+    document.getElementById('player1').innerText = player1score;
+    document.getElementById('player2').innerText = player2score;
+    document.getElementById('player3').innerText = player3score;
+    document.getElementById('player4').innerText = player4score;
     inScore();
     outScore();
 }

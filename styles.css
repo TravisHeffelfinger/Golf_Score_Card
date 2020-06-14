@@ -4,6 +4,7 @@
     justify-content: center;
     max-height: 100vh;
     max-width: 100vw;
+    background-color: seagreen;
 }
 
 .header-container {
@@ -24,7 +25,7 @@
     max-height: 200px;
     max-width: 60px;
     border: 1px, solid, black;
-    margin: 1px;
+    margin: 5px;
 }
 
 .row-container {
@@ -36,13 +37,25 @@
 
 }
 
+#total-score {
+    min-width: 60px;
+}
+
 .player-column {
-    max-width: 100px;
+    max-width: 80px;
     max-height: 200px;
 }
 
+.name-input {
+    max-width: 70px;
+}
+
 #white-space{
-    margin-top: 91px;
+    margin-top: 95px;
+}
+
+.white-space {
+    margin-top: 70px
 }
 
 .column-container input {
