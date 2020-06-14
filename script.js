@@ -179,6 +179,22 @@ function addScore(value, player, holeNum) {
     updateScore();
 }
 
+function isNaN(str){
+    
+    if(player1 == '') {
+        document.getElementById(`player-one-${str}`).innerText = 0;
+    }
+    if(player2 == '') {
+        document.getElementById(`player-two-${str}`).innerText = 0;
+    } 
+    if(player3 == '') {
+        document.getElementById(`player-three-${str}`).innerText = 0;
+    }
+    if(player4 == '') {
+        document.getElementById(`player-four-${str}`).innerText = 0;   
+    }
+    
+}
 function inScore() {
     for(let i = 8; i < 18; i++){
         player1in += player1[i];
@@ -190,6 +206,7 @@ function inScore() {
     document.getElementById('player-two-in').innerText = player2in;
     document.getElementById('player-three-in').innerText = player3in;
     document.getElementById('player-four-in').innerText = player4in;
+    isNaN('in');
 }
 
 function outScore() {
@@ -202,7 +219,8 @@ function outScore() {
     document.getElementById('player-one-out').innerText = player1out;
     document.getElementById('player-two-out').innerText = player2out;
     document.getElementById('player-three-out').innerText = player3out;
-    document.getElementById('player-four-out').innerText = player4out;   
+    document.getElementById('player-four-out').innerText = player4out;
+    isNaN('out');   
 }
 
 function clearScore(){
